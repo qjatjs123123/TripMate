@@ -75,4 +75,4 @@
  ``` 
 
  ## 💡 시연 영상 (이미지 클릭)
-[![Video Label](https://img.youtube.com/vi/5B4MNYsTYl8/0.jpg)](https://www.youtube.com/watch?v=5B4MNYsTYl8)
+[![Video Label](https://img.youtube.com/vi/kf4evPpzqDw/0.jpg)](https://youtu.be/kf4evPpzqDw)
