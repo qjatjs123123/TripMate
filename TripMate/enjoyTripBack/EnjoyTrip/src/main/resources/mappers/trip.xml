@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.trip.model.mapper.TripMapper">
+
+	<resultMap type="tripDto" id="trip">
+		<result column="content_id" property="content_id"/>
+		<result column="content_type_id" property="content_type_id"/>
+		<result column="title" property="title"/>
+		<result column="addr1" property="addr1"/>
+		<result column="addr2" property="addr2"/>
+		<result column="first_image" property="first_image"/>
+		<result column="first_image2" property="first_image2"/>
+		<result column="latitude" property="mapy"/>
+		<result column="longitude" property="mapx"/>
+		<result column="overview" property="overview"/>
+		<result column="isExist" property="isExist"/>
+	</resultMap>
+	
+	
+	<sql id="search">
+		<if test="sido_code gt 0"> 
+			AND s.sido_code = #{sido_code}
+		</if>
+		
+		<if test="content_type_id gt 0"> 
+			AND content_type_id = #{content_type_id}
+		</if>
+		
+		<if test="title != null and title != ''"> 
+			AND title LIKE concat('%', #{title}, '%') 
+		</if>
+	</sql>
+
+	<select id="getList" parameterType="map" resultMap="trip">
+		SELECT 
+		    ai.content_id,
+		    ai.content_type_id,
+		    ai.title,
+		    ai.addr1,
+		    ai.addr2,
+		    ai.first_image,
+		    ai.first_image2,
+		    ai.latitude,
+		    ai.longitude,
+		    ad.overview,
+		    CASE WHEN EXISTS (
+		        SELECT 1
+		        FROM cart
+		        WHERE userId = #{userId}
+		          AND content_id = ai.content_id
+		    ) THEN 1 ELSE 0 END AS isExist
+		FROM
+		    sido s
+		    JOIN attraction_info ai ON s.sido_code = ai.sido_code
+		    JOIN attraction_description ad ON ad.content_id = ai.content_id
+		<include refid="search"></include>
+		LIMIT 10 OFFSET #{pageNo};
+	</select>
+	
+<select id="getLatestAttraction" resultMap="trip">
+	SELECT 
+	    ai.content_id,
+	    ai.title,
+	    ai.first_image,
+	    ai.first_image2
+	FROM attraction_info as ai
+	    JOIN attraction_detail as ad ON ai.content_id = ad.content_id
+	ORDER BY ad.modified_time DESC
+	LIMIT 6;
+</select>
+	
+	<select id="getListByLoc" parameterType="map" resultMap="trip">
+	    SELECT ai.title, ai.addr1, ai.addr2, ai.first_image, ai.first_image2, ai.latitude, ai.longitude, ad.overview,  
+	    (6371 * acos( 
+	    cos( radians(#{lat}) ) * cos( radians( ai.latitude ) ) 
+	    * cos( radians( ai.longitude ) - radians(#{lon}) ) 
+	    + sin( radians(#{lat}) ) * sin( radians( ai.latitude ) ) 
+	    )) AS distance 
+	    FROM attraction_info ai 
+	    JOIN attraction_description ad ON ai.content_id = ad.content_id 
+	    WHERE ai.content_type_id = 12 
+	    AND (6371 * acos( cos( radians(#{lat}) ) * cos( radians( ai.latitude ) ) * cos( radians( ai.longitude ) - radians(#{lon}) ) + sin( radians(#{lat}) ) * sin( radians( ai.latitude ) ) )) &gt; #{area}/1000.0 
+	    ORDER BY distance 
+	    LIMIT 40
+	</select>
+	
+	
+
+</mapper>

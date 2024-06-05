@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.board.model.mapper.BoardMapper">
+
+	<resultMap type="boardDto" id="boardDto">
+		<result column="board_id" property="board_id"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="tripdate" property="tripdate"/>
+		<result column="img" property="img"/>
+		<result column="user_id" property="user_id"/>
+		<result column="registerdate" property="registerdate"/>
+		<result column="address" property="address"/>
+		<result column="hit" property="hit"/>
+	</resultMap>
+	
+	<resultMap type="fileInfoDto" id="file">
+		<result column="saveFolder" property="saveFolder"/>
+		<result column="originalFile" property="originalFile"/>
+		<result column="saveFile" property="saveFile"/>
+	</resultMap>
+
+	<sql id="search">
+		<if test="word != null and word != ''">
+			<if test="key == 'title'">
+				and title like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'title'">
+				and ${key} = #{word}
+			</if>
+		</if>
+	</sql>
+
+	<select id="listArticle" parameterType="map" resultMap="boardDto">
+		select board_id, title, content, tripdate, img, user_id, registerdate, address, hit
+		from hotplace
+		<include refid="search"></include>
+		order by board_id desc
+		limit #{start}, #{limit}
+	</select>
+	
+	<select id="getTotalArticleCount" parameterType="map" resultType="int">
+		select count(*)
+		from hotplace
+		<where>
+			<include refid="search"></include>
+		</where>
+	</select>
+	
+	<select id="getArticle" parameterType="int" resultMap="boardDto">
+        select board_id, title, content, img, user_id, registerdate, hit
+        from hotplace
+        where board_id = #{boardId};
+    </select>
+    
+	<insert id="writeArticle" parameterType="boardDto">
+	    INSERT INTO hotplace (title, content, tripdate, img, user_id, registerdate, address, hit)
+	    VALUES (#{title}, #{content}, #{tripdate}, #{img}, #{user_id}, now(), #{address}, 0);
+		<selectKey resultType="int" keyProperty="board_id" order="AFTER">
+		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="registerImg" parameterType="boardDto">
+		insert into FileInfo (board_id, saveFolder, originalFile, saveFile)
+		values
+		<foreach collection="fileInfos" item="fileinfo" separator=" , ">
+			(#{board_id}, #{fileinfo.saveFolder}, #{fileinfo.originalFile}, #{fileinfo.saveFile})
+		</foreach>
+	</insert>
+
+    <update id="modifyArticle" parameterType="boardDto">
+        UPDATE hotplace
+        SET title = #{title},
+        content = #{content}
+        WHERE board_id = #{board_id};
+    </update>
+    
+    <delete id="deleteArticle" parameterType="int">
+		delete from hotplace
+		where board_id = #{boardId}
+	</delete>
+	
+	<select id="fileInfoList" resultMap="file">
+		select saveFolder, originalFile, saveFile
+		from FileInfo
+		where board_id = #{boardId}
+	</select>
+	
+	<delete id="deleteFile" parameterType="int">
+		delete from FileInfo
+		where board_id = #{boardId}
+	</delete>
+	
+	<update id="updateHit" parameterType="int">
+		update hotplace
+		set hit = hit + 1
+		where board_id = #{boardId}
+	</update>
+	
+	<select id="getPopularArticle" resultMap="boardDto">
+		select board_id, title, content, tripdate, img, user_id, registerdate, address
+		from hotplace
+		order by hit desc
+		limit 6
+	</select>
+
+</mapper>

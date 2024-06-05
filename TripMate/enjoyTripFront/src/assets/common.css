@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+/* css 변수 */
+:root {
+  /* 반응형 padding 변수*/
+  --container-padding: 0px;
+  --container-padding-modal: 0px;
+  --container-padding-height-modal: 0px;
+  --header-total-height: calc(var(--header-height) + var(--header-border-height));
+
+  /* Header -> NavItem  */
+  --navItem-button-color: #F2F2F2;
+  --navItem-border-color:  #ccc;
+  --navItem-border-color2:  #dddddd;
+  --header-height: 65px;
+  --header-border-height: 1px;
+
+  /* Header -> logo -> fontSize */
+  --logo-font-size: 30px;
+  --logo-font-color: #4996F6;
+  --scrimModal: rgba(0, 0, 0, 0.4);
+  --hambugerbtn-height: 2px;
+  --hambugerbtn-color: #000;
+  --resgnb-padding-top:20px;
+  --gnb-background-color: #fff;
+  
+  /* Normal fontSize */
+  --font-size: 20px;
+
+  /* MainImage.vue */
+  --mainImg-size: 500px;
+
+  /* SlickSlider.vue */
+  --slick-box-inner-height: 250px;
+  --slick-box-padding-left: 5px;
+  --slick-box-img-height: 200px;
+  --slick-box-txt-height: 50px;
+
+  /* MainMenu.vue */
+  --mainImg-inner-height: 200px;
+  --mainMenu-img-icon-width : 50px;
+  --mainMenu-img-icon-height : 50px;
+  --mainMenu-box-padding: 20px;
+
+
+  /* LoginModal.vue */
+  --login-result-color : red;
+  --login-result-fz : 14px;
+  --login-btn-color : rgb(0, 123, 255);
+  --login-btn-ft-color: white;
+
+  /* MapGnb */
+  --side-menu-width: 58px;
+  --side-gnb-width:400px;
+  --side-gnb-width-padding:10px;
+  --side-gnb-width-res1:300px;
+  --side-gnb-width-res2:250px;
+
+  /* user 마이페이지 */
+  --withdraw-btn-color: #ff6b6b;
+  --common-btn-color:  #333333;
+  --img-reset-btn-color: #eee;
+  --profile-img-size: 150px
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: var(--font-size);
+  overflow-x: hidden;
+  background-color: #F8F9FA;
+}
+
+.responsive-padding {
+  padding: 0 var(--container-padding);
+}
+.responsive-padding-modal {
+  padding: var(--container-padding-height-modal) var(--container-padding-modal);
+}
+
+/* noBorder */
+.nb{
+  border: none;
+}
+
+/* noBackgroundColor */
+.nbgc {
+  background-color: transparent;
+}
+
+.noscrollx {
+  overflow-x: hidden;
+}
+/* normal fz */
+.nfz {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: var(--font-size);
+  overflow-x: hidden;
+}
+
+.router-link {
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+.inner-container{
+  width: calc(100vw - var(--container-padding) * 2);
+  height:100%;
+}
+
+.inner-container-modal{
+  width: calc(100vw - var(--container-padding-modal) * 2 - var(--side-menu-width));
+  height: calc(100vh - var(--container-padding-height-modal) * 2 - 66px);
+  
+}
+
+h3{
+  margin: 0;
+  padding: 0;
+  margin-top: 50px;
+}
+
+/* 스크롤바의 폭 너비 */
+.scroll::-webkit-scrollbar {
+  height: 10px;
+  width: 2px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #007bff; /* 스크롤바 색상 */
+  border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: rgba(0, 123, 255, 0.1);
+}
+.scroll {
+  padding-bottom: 10px;
+}
+
+.txt-webkit-box-1 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.txt-webkit-box-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.middle {
+  display: flex;
+  align-items: center;
+
+}

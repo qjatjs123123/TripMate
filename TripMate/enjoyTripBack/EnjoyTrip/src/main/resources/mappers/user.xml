@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.user.model.mapper.UserMapper">
+
+	<resultMap type="userDto" id="userDto">
+		<result column="name" property="name"/>
+		<result column="userId" property="userId"/>
+		<result column="password" property="password"/>
+		<result column="email" property="email"/>
+	</resultMap>
+	
+	
+	<select id="login" resultMap="userDto" parameterType="userDto">
+		select userId, password, name, email
+		from members
+		where userId = #{userId} AND password = #{password}
+	</select>
+	
+	<update id="userUpdate"  parameterType="userDto">
+		update members
+		set userId = #{userId},
+		password = #{password},
+		email = #{email},
+		name = #{name}
+		where userId = #{userId}
+	</update>
+	
+	
+	<update id="saveRefreshToken" parameterType="map">
+		update members
+		set token = #{token}
+		where userId = #{userId}
+	</update>
+	
+	<select id="getRefreshToken" parameterType="string" resultType="string">
+		select token
+		from members
+		where userId = #{userId}
+	</select>
+	
+	<update id="deleteRefreshToken" parameterType="map">
+		update members
+		set token = #{token, jdbcType=VARCHAR}
+		where userId = #{userId}
+	</update>
+	
+	<select id="userInfo" parameterType="string" resultMap="userDto">
+		select userId, password, email, name
+		from members
+		where userId = #{userId}
+	</select>
+	
+	<delete id="withdraw" parameterType="string">
+		DELETE FROM members WHERE userId = #{userId}
+	</delete>
+	
+	
+	<insert id="register" parameterType="userDto">
+    INSERT INTO members (userId, password, email, name)
+    VALUES (#{userId}, #{password}, #{email}, #{name})
+  </insert>
+	
+</mapper>

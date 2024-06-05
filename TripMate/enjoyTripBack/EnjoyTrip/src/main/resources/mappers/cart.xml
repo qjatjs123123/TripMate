@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.cart.model.mapper.CartMapper">
+
+	<resultMap type="CartDto" id="cart">
+		<result column="content_id" property="content_id"/>
+		<result column="content_type_id" property="content_type_id"/>
+		<result column="title" property="title"/>
+		<result column="addr1" property="addr1"/>
+		<result column="addr2" property="addr2"/>
+		<result column="first_image" property="first_image"/>
+		<result column="first_image2" property="first_image2"/>
+		<result column="latitude" property="mapy"/>
+		<result column="longitude" property="mapx"/>
+		<result column="overview" property="overview"/>
+	</resultMap>
+
+	<select id="getList" parameterType="string" resultMap="cart">
+		SELECT 
+		    ai.content_id,
+		    ai.content_type_id,
+		    ai.title,
+		    ai.addr1,
+		    ai.addr2,
+		    ai.first_image,
+		    ai.first_image2,
+		    ai.latitude,
+		    ai.longitude,
+		    ad.overview
+		FROM
+		    cart c
+		    JOIN attraction_info ai ON ai.content_id = c.content_id
+		    JOIN attraction_description ad ON ad.content_id = c.content_id
+		WHERE 
+		    c.userId = #{userId};
+	</select>
+	
+
+	<insert id="insertCartItem">
+        INSERT INTO cart (userId, content_id) VALUES (#{userId}, #{content_id})
+    </insert>
+	
+	<delete id="deleteCartItem">
+        DELETE FROM cart WHERE userId = #{userId} AND content_id = #{content_id}
+    </delete>
+
+</mapper>
