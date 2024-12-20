@@ -129,16 +129,18 @@
 > - `Brute Force`방법으로 할 경우 `n!`이라는 시간복잡도 소요 → `DP` 방법을 적용한 `TSP`알고리즘으로 `n^2 * 2^n`으로 향상 [코드 바로보기](https://github.com/qjatjs123123/TripMate/blob/main/TripMate/enjoyTripBack/EnjoyTrip/src/main/java/com/ssafy/cart/controller/CartController.java#L108-L199)
 <br />
 
-
-
-> ### 레거시 코드 개선
-> - `props drilling`문제로 유지보수가 어렵고, 불필요한 렌더링 발생. → `Context API`를 사용하여 코드의 가독성 및 렌더링 효율성 개선 [코드 바로보기](https://github.com/qjatjs123123/withMe/blob/master/frontend/src/app/(afterLogin)/_components/WorkspaceInfoProvider.tsx#L1-L27)
-> - `모달창`이 닫힐 때 생기는 로직 중복 →  `모달창`이 닫힐 때 필요한 로직을 커스텀 훅으로 분리하여 재사용성 높임. [코드 바로보기](https://github.com/qjatjs123123/withMe/blob/master/frontend/src/app/(afterLogin)/workspace/business/useModalClose.ts#L1-L36)
-> - `이미지 업로드` 로직 중복 →  `이미지 업로드` 로직을 커스텀 훅으로 분리하여 재사용성 높임. [코드 바로보기](https://github.com/qjatjs123123/withMe/blob/master/frontend/src/app/(afterLogin)/workspace/business/useModalClose.ts#L1-L76)
-> - `API 호출 결과 메시지 핸들러` 로직의 중복 문제 → 이를 커스텀 훅으로 분리하여 재사용성을 높임. [코드 바로보기](https://github.com/qjatjs123123/withMe/blob/master/frontend/src/app/(afterLogin)/workspace/business/useErrorHandler.ts#L1-L40)
-> - 공통 컴포넌트를 분리하고, props를 통해 함수를 전달함으로써 재사용성을 높임. [코드 바로보기](https://github.com/qjatjs123123/withMe/blob/master/frontend/src/app/_components/CloseBtn.tsx#L5-L21)
+> ### 여행지 검색 API
+> - `SpringBoot`와 `MyBatis`를 활용한 여행지 검색 API [코드 바로보기](https://github.com/qjatjs123123/TripMate/blob/main/TripMate/enjoyTripBack/EnjoyTrip/src/main/java/com/ssafy/trip/controller/tripController.java#L40-L60)
+> - 무한스크롤 라이브러리 없이 직접 구현 [코드 바로보기](https://github.com/qjatjs123123/TripMate/blob/main/TripMate/enjoyTripFront/src/components/map/MapGnb.vue#L20-L51)
 <br />
 
+> ### 여행지 계획 플래너
+> - `draggable`라이브러리를 통한 UX향상 [코드 바로보기](https://github.com/qjatjs123123/TripMate/blob/main/TripMate/enjoyTripFront/src/components/plan/PlanDate.vue#L55-L133)
+
+> ### 상태 관리
+> - `pinia` 상태관리 [코드 바로보기](https://github.com/qjatjs123123/TripMate/blob/main/TripMate/enjoyTripFront/src/stores/cart.js#L1-L95)
+
+<br />
 
 ## 💁‍♂️ 프로젝트 팀원
 | **FullStack** | **FullStack** |
