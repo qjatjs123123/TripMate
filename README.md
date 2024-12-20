@@ -134,6 +134,10 @@
 > - 무한스크롤 라이브러리 없이 직접 구현 [코드 바로보기](https://github.com/qjatjs123123/TripMate/blob/main/TripMate/enjoyTripFront/src/components/map/MapGnb.vue#L20-L51)
 <br />
 
+> ### 여행지 장바구니 API
+> - `SpringBoot`와 `MyBatis`를 활용한 CRUD [코드 바로보기](https://github.com/qjatjs123123/TripMate/blob/main/TripMate/enjoyTripBack/EnjoyTrip/src/main/java/com/ssafy/cart/controller/CartController.java#L26-L134)
+<br />
+
 > ### 여행지 계획 플래너
 > - `draggable`라이브러리를 통한 UX향상 [코드 바로보기](https://github.com/qjatjs123123/TripMate/blob/main/TripMate/enjoyTripFront/src/components/plan/PlanDate.vue#L55-L133)
 
