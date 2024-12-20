@@ -126,7 +126,7 @@
 
 ## 🤔 기술적 이슈와 해결 과정
 > ### 최단 경로 시각화
-> - `Brute Force`방법으로 할 경우 `n!`이라는 시간복잡도 소요 → `DP` 방법을 적용한 `TSP`알고리즘으로 `n^2 * 2^n`으로 향상 [코드 바로보기](https://github.com/qjatjs123123/withMe/blob/master/frontend/src/app/(afterLogin)/_components/WorkspaceInfoProvider.tsx#L1-L27)
+> - `Brute Force`방법으로 할 경우 `n!`이라는 시간복잡도 소요 → `DP` 방법을 적용한 `TSP`알고리즘으로 `n^2 * 2^n`으로 향상 [코드 바로보기](https://github.com/qjatjs123123/TripMate/blob/main/TripMate/enjoyTripBack/EnjoyTrip/src/main/java/com/ssafy/cart/controller/CartController.java#L108-L199)
 <br />
 
 
